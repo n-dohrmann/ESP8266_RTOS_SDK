@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Command line tool to convert simple ESP-IDF Makefile & component.mk files to
 # CMakeLists.txt files

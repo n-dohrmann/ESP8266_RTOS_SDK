@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Long-running server process uses stdin & stdout to communicate JSON
 # with a caller

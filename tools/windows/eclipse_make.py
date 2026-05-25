@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Wrapper to run make and preprocess any paths in the output from MSYS Unix-style paths
 # to Windows paths, for Eclipse

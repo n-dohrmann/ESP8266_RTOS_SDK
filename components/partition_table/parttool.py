@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # parttool is used to perform partition level operations - reading,
 # writing, erasing and getting info about the partition.

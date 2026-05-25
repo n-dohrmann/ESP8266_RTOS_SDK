@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # esp-idf alternative to "size" to print ELF file sizes, also analyzes
 # the linker map file to dump higher resolution details.

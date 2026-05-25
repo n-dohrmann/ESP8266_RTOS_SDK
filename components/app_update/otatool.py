@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # otatool is used to perform ota-level operations - flashing ota partition
 # erasing ota partition and switching ota partition

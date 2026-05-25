@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python33
 #
 # Stub has to be generated via Python 3, for correct repr() output
 #

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # gen_kconfig_doc - confgen.py support for generating ReST markup documentation
