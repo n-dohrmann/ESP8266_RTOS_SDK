@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # esp-idf serial output monitor tool. Does some helpful things:
 # - Looks up hex addresses in ELF file with addr2line

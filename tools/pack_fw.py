@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python32
 #
 # Copyright 2018-2019 Espressif Systems (Shanghai) PTE LTD
 # 

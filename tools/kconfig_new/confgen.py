@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Command line tool to take in ESP-IDF sdkconfig files with project
 # settings and output data in multiple formats (update config, generate

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # A script similar to GNU envsubst, but filters out
 # some CI related variables.

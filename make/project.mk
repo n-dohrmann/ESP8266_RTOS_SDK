@@ -348,7 +348,8 @@ LDFLAGS ?= -nostdlib \
 	-lstdc++ \
 	-lgcov \
 	-Wl,--end-group \
-	-Wl,-EL
+	-Wl,-EL \
+	-I /home/dev/ESP/ESP8266_RTOS_SD/components
 
 # Set default CPPFLAGS, CFLAGS, CXXFLAGS
 # These are exported so that components can use them when compiling.

@@ -6,33 +6,58 @@
    software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied.
 */
-#include <stdio.h>
+#include "esp_spi_flash.h"
+#include "esp_system.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_system.h"
-#include "esp_spi_flash.h"
+#include "../../components/local_include.h"
+#include <stdio.h>
+#include "driver/gpio.h"
 
+#ifndef GPIO_HIGH
+#define GPIO_HIGH 1
+#endif // GPIO_HIGH
+
+#ifndef GPIO_LOW
+#define GPIO_LOW 0
+#endif // GPIO_LOW
+
+
+// built-in LED pin connected to gpio pin 2
+#define LED_BUILTIN GPIO_NUM_2
+#define SECONDS(x) (((TickType_t)x * 1000) / portTICK_PERIOD_MS)
+
+// gpio and other init tasks
+esp_err_t init()
+{
+    esp_err_t sc = ESP_OK;
+
+    // configure gpio 2 (LED_BUILTIN) to be an output pin
+    gpio_config_t config;
+    config.pin_bit_mask = GPIO_Pin_2;
+    config.mode = GPIO_MODE_OUTPUT;
+    config.intr_type = GPIO_INTR_DISABLE;
+    config.pull_down_en = 0;
+    config.pull_up_en = 0;
+    if ((sc = gpio_config(&config)) != ESP_OK)
+        return sc;
+
+    return ESP_OK;
+}
+
+void toggle()
+{
+    uint32_t new_level = GPIO_HIGH ^ gpio_get_level(LED_BUILTIN);
+    gpio_set_level(LED_BUILTIN, new_level);
+    vTaskDelay(SECONDS(1));
+}
 
 void app_main()
 {
-    printf("Hello world!\n");
+    if (init() != ESP_OK)
+        exit(1);
 
-    /* Print chip information */
-    esp_chip_info_t chip_info;
-    esp_chip_info(&chip_info);
-    printf("This is ESP8266 chip with %d CPU cores, WiFi, ",
-            chip_info.cores);
-
-    printf("silicon revision %d, ", chip_info.revision);
-
-    printf("%dMB %s flash\n", spi_flash_get_chip_size() / (1024 * 1024),
-            (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
-
-    for (int i = 10; i >= 0; i--) {
-        printf("Restarting in %d seconds...\n", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    while (1) {
+        toggle();
     }
-    printf("Restarting now.\n");
-    fflush(stdout);
-    esp_restart();
 }

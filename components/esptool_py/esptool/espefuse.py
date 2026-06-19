@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # ESP32 efuse get/set utility
 # https://github.com/themadinventor/esptool
 #

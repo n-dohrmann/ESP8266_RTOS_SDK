@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Trivial wrapper program to run esptool.py using the just-compiled
 # flasher stub in the build/ subdirectory
