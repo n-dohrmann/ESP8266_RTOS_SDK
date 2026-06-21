@@ -44,3 +44,6 @@ docs/doxygen_sqlite3.db
 .DS_Store
 
 docs/_build/
+
+# local definition secrets
+local_secrets.h
