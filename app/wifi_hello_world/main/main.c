@@ -63,9 +63,6 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
-#ifdef CONFIG_ESP_FILENAME_MACRO_NULL
-#endif
-
 void wifi_init_sta(void)
 {
     s_wifi_event_group = xEventGroupCreate();

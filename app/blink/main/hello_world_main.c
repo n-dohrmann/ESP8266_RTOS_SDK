@@ -6,6 +6,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "../../components/local_dev/include/local_defs.h"
+#include "../../components/local_dev/include/pin_init.h"
 #include "driver/gpio.h"
 
 
@@ -26,15 +27,8 @@
 esp_err_t init()
 {
     esp_err_t sc = ESP_OK;
-
     // configure gpio 2 (LED_BUILTIN) to be an output pin
-    gpio_config_t config;
-    config.pin_bit_mask = GPIO_Pin_2;
-    config.mode = GPIO_MODE_OUTPUT;
-    config.intr_type = GPIO_INTR_DISABLE;
-    config.pull_down_en = 0;
-    config.pull_up_en = 0;
-    if ((sc = gpio_config(&config)) != ESP_OK)
+    if ((sc = pin_default_out(GPIO_Pin_2)) != ESP_OK)
         return sc;
 
     return ESP_OK;
