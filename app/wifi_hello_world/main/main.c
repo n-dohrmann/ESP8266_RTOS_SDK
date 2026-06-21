@@ -119,15 +119,20 @@ void wifi_init_sta(void)
             ESP_WIFI_SSID, ESP_WIFI_PASS);
 
         // turn on led2 to incicate success
-        gpio_set_level(ESP01S_GPIO2_BIT, GPIO_LOW);
+        gpio_set_level(ESP01S_GPIO2_NUM, GPIO_HIGH);
+        printf("Connect success!\n");
+
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
             ESP_WIFI_SSID, ESP_WIFI_PASS);
-
         // turn on led0 to indicate failure
-        gpio_set_level(ESP01S_GPIO0_BIT, GPIO_LOW);
+        gpio_set_level(ESP01S_GPIO0_NUM, GPIO_HIGH);
+        printf("Connect failure!\n");
     } else {
         ESP_LOGE(TAG, "UNEXPECTED EVENT");
+        // turn on both 
+        gpio_set_level(ESP01S_GPIO2_NUM, GPIO_HIGH);
+        gpio_set_level(ESP01S_GPIO0_NUM, GPIO_HIGH);
     }
 
     // delete this later.
@@ -146,6 +151,10 @@ esp_err_t pin_init()
         return sc;
     if ((sc = pin_default_out(ESP01S_GPIO0_BIT) != ESP_OK))
         return sc;
+
+    // turn off both pins
+    gpio_set_level(ESP01S_GPIO0_NUM, GPIO_LOW);
+    gpio_set_level(ESP01S_GPIO2_NUM, GPIO_LOW);
     return ESP_OK;
 }
 
@@ -154,6 +163,11 @@ void app_main()
     ESP_ERROR_CHECK(nvs_flash_init());
 
     ESP_ERROR_CHECK(pin_init());
+
+    for (int tt = 15; tt; --tt) {
+        printf("starting wifi connect in %d...\n", tt);
+        vTaskDelay(SECONDS(1));
+    }
 
     ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
     wifi_init_sta();
