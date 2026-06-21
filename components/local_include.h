@@ -1,5 +1,8 @@
 
 // misc defines that were not pre-included anywhere else
+// defining for mac only - not build environment
+
+#ifdef __APPLE__
 
 #ifndef CONFIG_FREERTOS_HZ
 #define CONFIG_FREERTOS_HZ 1000
@@ -11,5 +14,8 @@ typedef unsigned int u32_t;
 #endif // _U32_T_IMPL
 
 #ifndef _LOCAL_ESP_FILE_DEF
+#define _LOCAL_ESP_FILE_DEF
 #define __ESP_FILE__ "null"
-#endif _LOCAL_ESP_FILE_DEF
+#endif
+
+#endif // __APPLE__
