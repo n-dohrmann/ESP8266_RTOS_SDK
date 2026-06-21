@@ -9,3 +9,7 @@
 #define _U32_T_IMPL
 typedef unsigned int u32_t;
 #endif // _U32_T_IMPL
+
+#ifndef _LOCAL_ESP_FILE_DEF
+#define __ESP_FILE__ "null"
+#endif _LOCAL_ESP_FILE_DEF
