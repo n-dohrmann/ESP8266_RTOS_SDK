@@ -1,7 +1,14 @@
 
-// misc defines that were not pre-included anywhere else
-// defining for mac only - not build environment
+// other definitions
+#ifndef GPIO_HIGH
+#define GPIO_HIGH 1
+#endif
 
+#ifndef GPIO_LOW
+#define GPIO_LOW 0
+#endif
+
+// definitions for dev (not build) environment on mac
 #ifdef __APPLE__
 
 #ifndef CONFIG_FREERTOS_HZ
