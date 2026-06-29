@@ -24,12 +24,17 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
+// NOTES: instead of this we should be using the builtin
+// pdMS_TO_TICKS macro which converts a ms value to ticks,
+// based on whatever the current tick frequency is.
 #define SECONDS(x) (((TickType_t)x * 1000) / portTICK_PERIOD_MS)
 
 // local config
-#include "../local_secrets.h"
+#include "../../local_secrets.h"
 
 #define EXAMPLE_ESP_MAXIMUM_RETRY 5
+
+extern void extern_func();
 
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
@@ -43,6 +48,14 @@ static EventGroupHandle_t s_wifi_event_group;
 static const char* TAG = "wifi station";
 
 static int s_retry_num = 0;
+
+// turn off both pins
+void pin_off()
+{
+    gpio_set_level(ESP01S_GPIO0_NUM, GPIO_LOW);
+    gpio_set_level(ESP01S_GPIO2_NUM, GPIO_LOW);
+    extern_func();
+}
 
 static void event_handler(void* arg, esp_event_base_t event_base,
     int32_t event_id, void* event_data)
@@ -136,12 +149,22 @@ void wifi_init_sta(void)
     }
 
     // delete this later.
-    vTaskDelay(SECONDS(300));
+    vTaskDelay(SECONDS(10));
+    printf("Disconnecting...\n");
 
     ESP_ERROR_CHECK(esp_event_handler_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, &event_handler));
     ESP_ERROR_CHECK(esp_event_handler_unregister(WIFI_EVENT, ESP_EVENT_ANY_ID, &event_handler));
     vEventGroupDelete(s_wifi_event_group);
+
+    ESP_ERROR_CHECK(esp_wifi_disconnect());
+
+    // turn off pins
+    pin_off();
+
+    // disable current task
+    vTaskDelete(NULL);
 }
+
 
 // turn on both io0 (red led) and io2 (green led) as output pins
 esp_err_t pin_init()
@@ -153,8 +176,7 @@ esp_err_t pin_init()
         return sc;
 
     // turn off both pins
-    gpio_set_level(ESP01S_GPIO0_NUM, GPIO_LOW);
-    gpio_set_level(ESP01S_GPIO2_NUM, GPIO_LOW);
+    pin_off();
     return ESP_OK;
 }
 
