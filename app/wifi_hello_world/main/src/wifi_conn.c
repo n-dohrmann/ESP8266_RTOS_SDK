@@ -24,6 +24,8 @@
 static EventGroupHandle_t s_wifi_event_group;
 static int s_retry_num = 0;
 
+static const char* TAG = "wifi station";
+
 extern void pin_off(void);
 
 static void event_handler(void* arg, esp_event_base_t event_base,
@@ -101,20 +103,20 @@ void wifi_init_sta(void)
             ESP_WIFI_SSID, ESP_WIFI_PASS);
 
         // turn on led2 to incicate success
-        gpio_set_level(ESP01S_GPIO2_NUM, GPIO_HIGH);
+        // gpio_set_level(ESP01S_GPIO2_NUM, GPIO_HIGH);
         printf("Connect success!\n");
 
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
             ESP_WIFI_SSID, ESP_WIFI_PASS);
         // turn on led0 to indicate failure
-        gpio_set_level(ESP01S_GPIO0_NUM, GPIO_HIGH);
+        // gpio_set_level(ESP01S_GPIO0_NUM, GPIO_HIGH);
         printf("Connect failure!\n");
     } else {
         ESP_LOGE(TAG, "UNEXPECTED EVENT");
         // turn on both 
-        gpio_set_level(ESP01S_GPIO2_NUM, GPIO_HIGH);
-        gpio_set_level(ESP01S_GPIO0_NUM, GPIO_HIGH);
+        // gpio_set_level(ESP01S_GPIO2_NUM, GPIO_HIGH);
+        // gpio_set_level(ESP01S_GPIO0_NUM, GPIO_HIGH);
     }
 }
 
