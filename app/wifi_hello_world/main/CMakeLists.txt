@@ -4,4 +4,4 @@
 set(COMPONENT_SRCS "src/main.c"
                    "src/http_client.c")
 
-set(COMPONENT_ADD_INCLUDEDIRS ".")
+set(COMPONENT_ADD_INCLUDEDIRS "." "./include")
